@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cloud-Based File Upload Tool</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Cloud-Based File Upload Tool</h1>
+      <p>
+        Ein einfacher und sicherer Weg, Dateien hochzuladen, zu teilen und
+        automatisch zu löschen.
+      </p>
+    </header>
+    <main>
+      <section id="upload">
+        <h2>Dateien hochladen</h2>
+        <form id="uploadForm">
+          <input type="file" id="fileInput" />
+          <button type="button" id="uploadButton">Datei hochladen</button>
+        </form>
+        <div id="progressContainer">
+          <progress id="uploadProgress" value="0" max="100"></progress>
+          <span id="uploadStatus"></span>
+        </div>
+      </section>
+      <section id="features">
+        <h2>Features</h2>
+        <ul>
+          <li>Einfacher Datei-Upload</li>
+          <li>Sicherer Speicher</li>
+          <li>Teilen mit einem Klick</li>
+          <li>Automatische Löschung nach 7 Tagen</li>
+        </ul>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2025 Cloud-Based File Upload Tool</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
