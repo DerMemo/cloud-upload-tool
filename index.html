@@ -9,31 +9,19 @@
   <body>
     <header>
       <h1>Cloud-Based File Upload Tool</h1>
-      <p>
-        Ein einfacher und sicherer Weg, Dateien hochzuladen, zu teilen und
-        automatisch zu löschen.
-      </p>
+      <p>Ein einfacher Weg, Dateien hochzuladen und zu verwalten.</p>
     </header>
     <main>
       <section id="upload">
-        <h2>Dateien hochladen</h2>
+        <h2>Datei hochladen</h2>
         <form id="uploadForm">
           <input type="file" id="fileInput" />
           <button type="button" id="uploadButton">Datei hochladen</button>
         </form>
-        <div id="progressContainer">
-          <progress id="uploadProgress" value="0" max="100"></progress>
-          <span id="uploadStatus"></span>
+        <div id="fileList">
+          <h3>Hochgeladene Dateien:</h3>
+          <ul id="uploadedFiles"></ul>
         </div>
-      </section>
-      <section id="features">
-        <h2>Features</h2>
-        <ul>
-          <li>Einfacher Datei-Upload</li>
-          <li>Sicherer Speicher</li>
-          <li>Teilen mit einem Klick</li>
-          <li>Automatische Löschung nach 7 Tagen</li>
-        </ul>
       </section>
     </main>
     <footer>
