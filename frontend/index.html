@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cloud File Upload Tool</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Cloud File Upload Tool</h1>
+      <p>
+        Ein einfacher Weg, Dateien hochzuladen, zu teilen und automatisch zu
+        löschen.
+      </p>
+    </header>
+    <main>
+      <section id="upload">
+        <h2>Hochladen</h2>
+        <form id="uploadForm">
+          <input type="file" id="fileInput" />
+          <button type="button" id="uploadButton">Hochladen</button>
+        </form>
+        <div id="fileList">
+          <h3>Hochgeladene Dateien:</h3>
+          <ul id="uploadedFiles"></ul>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2025 Cloud File Upload Tool</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

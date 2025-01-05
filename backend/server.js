@@ -1,47 +1,40 @@
+require("dotenv").config();
 const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
-const path = require("path");
+const { BlobServiceClient } = require("@azure/storage-blob");
 
 const app = express();
 const port = 3001;
 
-// CORS aktivieren
 app.use(cors());
 
-// Statische Dateien aus dem Ordner "uploads" bereitstellen
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+const AZURE_STORAGE_CONNECTION_STRING =
+  process.env.AZURE_STORAGE_CONNECTION_STRING;
+const blobServiceClient = BlobServiceClient.fromConnectionString(
+  AZURE_STORAGE_CONNECTION_STRING
+);
+const containerName = "uploads";
 
-// Multer konfigurieren
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/"); // Speicherort für Dateien
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname); // Dateiname bleibt gleich
-  },
-});
+const upload = multer({ dest: "uploads/" });
 
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10 MB
-});
+app.post("/upload", upload.single("file"), async (req, res) => {
+  try {
+    const containerClient = blobServiceClient.getContainerClient(containerName);
+    const blobName = req.file.originalname;
+    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
-// API für Datei-Upload
-app.post("/upload", upload.single("file"), (req, res) => {
-  if (!req.file) {
-    return res.status(400).send("Keine Datei hochgeladen.");
+    await blockBlobClient.uploadFile(req.file.path);
+    res.send({
+      message: "Datei erfolgreich hochgeladen.",
+      fileName: blobName,
+      fileUrl: `https://${blobServiceClient.accountName}.blob.core.windows.net/${containerName}/${blobName}`,
+    });
+  } catch (error) {
+    res.status(500).send("Fehler beim Hochladen.");
   }
-
-  // Rückgabe der Dateipfad-URL
-  res.send({
-    message: "Datei erfolgreich hochgeladen.",
-    fileName: req.file.originalname,
-    filePath: `http://localhost:${port}/uploads/${req.file.filename}`,
-  });
 });
 
-// Server starten
-app.listen(port, () => {
-  console.log(`Server läuft auf http://localhost:${port}`);
-});
+app.listen(port, () =>
+  console.log(`Server läuft auf http://localhost:${port}`)
+);
